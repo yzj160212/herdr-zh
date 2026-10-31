@@ -88,6 +88,7 @@ git add -A && git commit -m "跟到 Herdr <版本>"
 | `leftover.py` | 扫出疑似未翻译的英文文案 |
 | `docaudit.py` | 文档自检，命令能不能跑、数量对不对、术语有没有解释、排版与 AI 味 |
 | `docaudit.selftest.sh` | 验证 docaudit 本身还有效（造一份故意有错的文档，看它是否逐条报出） |
+| `pre-commit` `install-hooks.sh` | 装 git 钩子，提交前自动跑文档自检 |
 | `backup/` | 每次刷新前的副本自动备份 |
 | `frame-settings-*.js` `mods-confirm-*.js` `mods-prompt-*.js` | 三个锁定文件的中英文源码对 |
 

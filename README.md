@@ -124,6 +124,14 @@ macOS 菜单栏里 Herdr 菜单的那几项，`Settings…`、`Hide Herdr`、`Qu
 
 Herdr 升级会把它自己的文件换掉，中文会有几处回退。`tools/` 里有体检和跟版的工具，怎么用写在 `UPGRADE.md`。
 
+## 改这个仓库的时候
+
+```sh
+bash tools/install-hooks.sh      # 装一次
+```
+
+装完之后，每次提交只要改动里有 `.md`，就会自动跑 `tools/docaudit.py`，检查命令能不能跑、数量对不对、术语有没有解释、中文排版、有没有 AI 味。不通过就拦下提交。检查器本身也有自检，跑 `bash tools/docaudit.selftest.sh`。
+
 ## 许可
 
 Apache-2.0。这些模块是 Herdr 自带模块改出来的衍生作品，署名和图标来源（Lucide，ISC）写在 `NOTICE`。完整的复刻说明在 `RECIPE.md`。

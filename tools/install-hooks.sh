@@ -1,12 +1,19 @@
 #!/bin/bash
 # 把仓库里的钩子装到 .git/hooks/。用软链，改了仓库里的钩子立刻生效。
+#
+# 公开仓库里钩子在 tools/，本地安装版在 zh-patch/，脚本自己认。
 set -euo pipefail
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
-mkdir -p .git/hooks
-for h in pre-commit; do
-  [ -f "tools/$h" ] || { echo "没找到 tools/$h"; exit 1; }
-  chmod +x "tools/$h"
-  ln -sf "../../tools/$h" ".git/hooks/$h"
-  echo "已装 .git/hooks/$h -> tools/$h"
+
+DIR=""
+for d in tools zh-patch; do
+  [ -f "$d/pre-commit" ] && DIR="$d" && break
 done
+[ -n "$DIR" ] || { echo "没找到 pre-commit（tools/ 或 zh-patch/ 里都没有）"; exit 1; }
+
+mkdir -p .git/hooks
+chmod +x "$DIR/pre-commit"
+ln -sf "../../$DIR/pre-commit" ".git/hooks/pre-commit"
+echo "已装 .git/hooks/pre-commit -> $DIR/pre-commit"
+echo "之后每次提交，只要改动里有 .md 就会自动跑文档自检。"
