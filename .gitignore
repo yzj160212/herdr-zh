@@ -1,0 +1,7 @@
+# Herdr 检查模块时会在这三个位置生成类型文件与编辑器配置，不入库
+*.d.ts
+jsconfig.json
+*.error
+node_modules/
+.DS_Store
+__pycache__/

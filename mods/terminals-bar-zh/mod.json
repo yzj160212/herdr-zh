@@ -1,0 +1,8 @@
+{
+  "place": "none",
+  "title": "终端版标签栏",
+  "cloned_from": {
+    "name": "terminals-bar",
+    "version": "0.1.10"
+  }
+}

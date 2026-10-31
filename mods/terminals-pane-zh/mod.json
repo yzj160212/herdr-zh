@@ -1,0 +1,8 @@
+{
+  "place": "none",
+  "title": "终端版窗格表头",
+  "cloned_from": {
+    "name": "terminals-pane",
+    "version": "0.1.10"
+  }
+}

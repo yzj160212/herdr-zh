@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
+  <rect width="320" height="200" rx="10" fill="#131619" stroke="#25282c"/>
+  <!-- 侧边栏 -->
+  <rect x="6" y="6" width="92" height="188" rx="7" fill="#17191c"/>
+  <rect x="14" y="14" width="34" height="8" rx="4" fill="#e8e9eb"/>
+  <rect x="14" y="32" width="30" height="6" rx="3" fill="#8b8f95"/>
+  <rect x="12" y="44" width="80" height="16" rx="5" fill="#202225"/>
+  <circle cx="21" cy="52" r="5" fill="#22a99a"/>
+  <rect x="30" y="49" width="34" height="6" rx="3" fill="#e8e9eb"/>
+  <rect x="14" y="68" width="26" height="6" rx="3" fill="#8b8f95"/>
+  <rect x="12" y="80" width="80" height="14" rx="5" fill="#1d1f22"/>
+  <circle cx="21" cy="87" r="4" fill="#e3814f"/>
+  <rect x="30" y="84" width="30" height="5" rx="2.5" fill="#c4c6ca"/>
+  <rect x="12" y="98" width="80" height="14" rx="5" fill="#1d1f22"/>
+  <circle cx="21" cy="105" r="4" fill="#e3814f"/>
+  <rect x="30" y="102" width="22" height="5" rx="2.5" fill="#c4c6ca"/>
+  <rect x="14" y="168" width="44" height="7" rx="3.5" fill="#8b8f95"/>
+  <rect x="14" y="181" width="52" height="7" rx="3.5" fill="#5d6168"/>
+  <!-- 标签栏 -->
+  <rect x="104" y="6" width="210" height="20" rx="6" fill="#17191c"/>
+  <rect x="110" y="9" width="56" height="14" rx="5" fill="#202225"/>
+  <circle cx="118" cy="16" r="3.5" fill="#22a99a"/>
+  <rect x="126" y="13" width="34" height="6" rx="3" fill="#e8e9eb"/>
+  <rect x="292" y="9" width="14" height="14" rx="5" fill="#202225"/>
+  <!-- 终端卡片 -->
+  <rect x="104" y="32" width="210" height="140" rx="9" fill="#0f1114" stroke="#25282c"/>
+  <rect x="112" y="40" width="70" height="6" rx="3" fill="#8b8f95"/>
+  <rect x="112" y="54" width="90" height="6" rx="3" fill="#22a99a"/>
+  <rect x="112" y="66" width="120" height="5" rx="2.5" fill="#3b82f6"/>
+  <rect x="112" y="78" width="60" height="5" rx="2.5" fill="#8b8f95"/>
+  <!-- 面板 -->
+  <rect x="242" y="36" width="68" height="132" rx="8" fill="#17191c"/>
+  <rect x="250" y="44" width="30" height="6" rx="3" fill="#e8e9eb"/>
+  <rect x="250" y="58" width="46" height="5" rx="2.5" fill="#8b8f95"/>
+  <rect x="250" y="70" width="40" height="5" rx="2.5" fill="#8b8f95"/>
+  <rect x="250" y="82" width="50" height="5" rx="2.5" fill="#8b8f95"/>
+  <rect x="250" y="94" width="34" height="5" rx="2.5" fill="#8b8f95"/>
+  <!-- 状态栏 -->
+  <rect x="104" y="178" width="210" height="16" rx="6" fill="#17191c"/>
+  <rect x="112" y="183" width="40" height="6" rx="3" fill="#8b8f95"/>
+  <rect x="266" y="183" width="42" height="6" rx="3" fill="#5d6168"/>
+</svg>
