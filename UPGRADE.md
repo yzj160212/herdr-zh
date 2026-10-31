@@ -1,7 +1,6 @@
 # Herdr 中文化：升级流程说明
 
-Herdr 升级后中文可能局部回退。这份文档说明**为什么会回退**、**按什么顺序修**，
-以及每一步用什么工具、怎么验证。
+Herdr 升级后中文可能局部回退。这份文档说明**为什么会回退**、**按什么顺序修**，以及每一步用什么工具、怎么验证。
 
 ---
 
@@ -31,8 +30,7 @@ Herdr 没有语言设置，中文是三层东西拼出来的：
 - **A 类：锁定文件停留在旧版** —— 设置窗口少了新版新增的选项。
 - **B 类：中文副本停留在旧版** —— 侧边栏/标签栏/面板少了新版功能，或上游改了文案而副本还是旧的。
 
-判断方法：副本的 `mod.json` 里记着克隆时的版本（`cloned_from.version`），
-和 `herdr-app --version` 一比就知道落了多少。
+判断方法：副本的 `mod.json` 里记着克隆时的版本（`cloned_from.version`），和 `herdr-app --version` 一比就知道落了多少。
 
 ---
 
@@ -93,9 +91,7 @@ git add -A && git commit -m "跟到 Herdr <版本>"
 
 `zhmerge.py` 的设计原则，值得记住：
 
-**已知局限**：`zhstrings.py` / `zhmerge.py` 用正则找字符串字面量，**嵌套模板串**
-（例如 `` `打开 worktree${r ? ` · ${r.name}` : ""}` ``）会被切断，于是这类文件
-可能被报成「需人工」。判断法：直接 `git diff` 看差异，若只差文案就是误报。
+**已知局限**：`zhstrings.py` / `zhmerge.py` 用正则找字符串字面量，**嵌套模板串** （例如 `` `打开 worktree${r ? ` · ${r.name}` : ""}` ``）会被切断，于是这类文件可能被报成「需人工」。判断法：直接 `git diff` 看差异，若只差文案就是误报。
 
 > **宁可留英文，也不把代码配错。**
 > 只在「对齐的代码块」里搬文案；非对齐块原样用上游，其中的英文文案列成「待翻译」交人补。
@@ -106,8 +102,7 @@ git add -A && git commit -m "跟到 Herdr <版本>"
 
 ## 四、A 类：锁定文件遇到上游改了源码
 
-`apply.sh` 只是把仓库里的中文版写回去。如果上游**改了 `frame/settings` 的源码结构**，
-中文版就是旧逻辑，新选项不会出现。这时：
+`apply.sh` 只是把仓库里的中文版写回去。如果上游**改了 `frame/settings` 的源码结构**，中文版就是旧逻辑，新选项不会出现。这时：
 
 ```sh
 cd ~/.config/herdr-app
@@ -137,8 +132,7 @@ herdr-app check frame/settings
 
 ## 五、B 类：中文副本里「我自己的代码改动」
 
-有些副本不只是换文案，还改了代码（例如把 `run("app.settings")` 换成打开中文设置页）。
-`refresh.sh` 用的是**上游代码 + 中文文案**，所以会**丢掉这些代码改动**。刷新后要手工补回：
+有些副本不只是换文案，还改了代码（例如把 `run("app.settings")` 换成打开中文设置页）。`refresh.sh` 用的是**上游代码 + 中文文案**，所以会**丢掉这些代码改动**。刷新后要手工补回：
 
 | 副本 | 代码级改动（刷新后要补回） |
 |---|---|
@@ -176,10 +170,8 @@ cp zh-patch/backup/spaces-zh-0.1.10-before.js mods/spaces-zh/main.js
 ## 七、已知边界（无法汉化）
 
 - **macOS 菜单栏** Herdr 菜单里的 `Settings…` / `Hide Herdr` / `Quit Herdr` /
-  `Services` / `Show All`：系统菜单，文案在二进制里。其中 `Settings…` 打开的
-  **已经是中文设置窗口**。
+  `Services` / `Show All`：系统菜单，文案在二进制里。其中 `Settings…` 打开的**已经是中文设置窗口**。
 - **应用自己弹的 toast 正文**（如 `herdr-core is up to date`）：在二进制里。
 - **终端里你自己程序输出的内容**：不属于 Herdr 界面。
 - 有意保留英文的专有名词：`Herdr`、`Herdr 98`、`herdr-core`、`hc`、字体名
-  （`JetBrains Mono`、`Geist`）、主题名（`graphite` `ink` `moss` `atom one dark` `paper`）、
-  快捷键名（`Esc`、`⌘`）。
+  （`JetBrains Mono`、`Geist`）、主题名（`graphite` `ink` `moss` `atom one dark` `paper`）、快捷键名（`Esc`、`⌘`）。

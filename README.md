@@ -2,8 +2,7 @@
 
 把 [Herdr](https://herdr.dev) 的界面换成**简体中文**的一套布局与模块。
 
-Herdr 本身没有语言/区域设置，界面文案写死在程序里和它自带的界面模块里。
-这套东西不改 `Herdr.app` 本体（不改二进制、不重签名），而是提供：
+Herdr 没有语言/区域设置，界面文案写死在程序里和它自带的界面模块里。这套东西不动 `Herdr.app` 本体（不改二进制、不重签名），只是换一份布局和一组界面模块：
 
 - 两个中文布局：**Herdr 中文版**（`main-zh`）与 **终端版 中文**（`terminals-zh`）
 - 25 个中文界面模块
@@ -13,14 +12,20 @@ Herdr 本身没有语言/区域设置，界面文案写死在程序里和它自�
 
 ![Herdr 中文版](preview.png)
 
+*上图是 Herdr 0.1.10 的真机截图（`herdr-app shot` 直接抓窗口）：侧边栏「空间 / 设置 / 添加机器」、标签栏、窗格表头、底部状态栏「本机 · 1 个代理 / ⌘ Shift P 命令」都是中文。*
+
 ---
 
 ## 装（3 步）
 
 ```sh
+# 0. 拿到文件
+git clone https://github.com/yzj160212/herdr-zh.git ~/herdr-zh && cd ~/herdr-zh
+
 H=~/.config/herdr-app
 
 # 1. 布局与模块
+mkdir -p "$H/layouts" "$H/mods"
 cp -R layouts/* "$H/layouts/"
 cp -R mods/*    "$H/mods/"
 
@@ -37,8 +42,7 @@ herdr-app do layout.switch '{"name":"main-zh"}'
 
 ### 可选：让「设置」窗口也变中文
 
-Herdr 的设置窗口是**应用内建的独立窗口**，源码在 `frame/settings/`，而且**每次启动
-都会被重写**，所以只能"锁定替换"。工具已备好：
+Herdr 的设置窗口是**应用内建的独立窗口**，源码在 `frame/settings/`，而且**每次启动都会被重写**，所以只能"锁定替换"。工具已备好：
 
 ```sh
 cp -R tools ~/.config/herdr-app/zh-patch
@@ -46,8 +50,7 @@ cd ~/.config/herdr-app && ./zh-patch/apply.sh      # 应用/--restore 还原
 # 同时会替换 mods/confirm（关闭确认框）与 mods/prompt（重命名输入框）
 ```
 
-原理：写入中文版后 `chmod 444` + `chflags uchg` 锁住，Herdr 写不进去就跳过。
-代价是这三个文件不跟随应用更新；升级后重跑 `apply.sh` 即可。
+原理：写入中文版后 `chmod 444` + `chflags uchg` 锁住，Herdr 写不进去就跳过。代价是这三个文件不跟随应用更新；升级后重跑 `apply.sh` 即可。
 
 ---
 
@@ -65,8 +68,7 @@ herdr-zh/
 ├── RECIPE.md                 从零重建这套东西的完整说明（给 agent 看）
 ├── UPGRADE.md                跟着 Herdr 升级维护译文的流程
 ├── tools/                    可选工具：设置窗口汉化 + 体检 + 跟版合并
-├── preview.png / preview-terminals-zh.png
-├── assets/                   上面两张预览图的 SVG 源（Chrome 无头渲染成 PNG）
+├── preview.png              真机截图（herdr-app shot）
 └── LICENSE  NOTICE           Apache-2.0；Herdr 与 Lucide 的署名
 ```
 
@@ -99,8 +101,7 @@ herdr-zh/
 | 窗口 | `whatsnew-zh` | 更新内容 |
 | 终端版 | `terminals-bar-zh` `terminals-pane-zh` | 终端版布局的标题栏与窗格表头 |
 
-\* `peek-zh` 与 `toast-zh` 已做但没有装进分享包：Herdr 是按固定名字打开 `peek` / `toast`
-的，用户侧替换不了（见 `RECIPE.md` 的「当心」）。
+注：`peek-zh` 与 `toast-zh` 已做但没有装进分享包：Herdr 是按固定名字打开 `peek` / `toast` 的，用户侧替换不了（见 `RECIPE.md` 的「当心」）。
 
 ---
 
@@ -113,13 +114,11 @@ herdr-zh/
 ## 边界（改不了的）
 
 - **macOS 菜单栏**里 Herdr 菜单的 `Settings…` / `Hide Herdr` / `Quit Herdr` /
-  `Services` / `Show All`：系统菜单，文案在二进制里（其中 `Settings…` 打开的
-  **是中文设置窗口**）。
+  `Services` / `Show All`：系统菜单，文案在二进制里（其中 `Settings…` 打开的**是中文设置窗口**）。
 - **Herdr 自己弹的提示条（toast）正文**：在二进制里。
 - **终端里你自己程序输出的内容**：不属于 Herdr 界面。
 - 有意保留英文的专有名词：`Herdr`、`Herdr 98`、`herdr-core`、`hc`、字体名、主题名、`Esc`。
 
 ## 许可
 
-Apache-2.0（见 `LICENSE`）。这套模块是 Herdr 自带模块的衍生作品，署名与第三方图标
-（Lucide，ISC）声明见 `NOTICE`。
+Apache-2.0（见 `LICENSE`）。这套模块是 Herdr 自带模块的衍生作品，署名与第三方图标（Lucide，ISC）声明见 `NOTICE`。

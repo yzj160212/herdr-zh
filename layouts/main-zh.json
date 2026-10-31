@@ -198,5 +198,6 @@
     12,
     16
   ],
-  "terminal_menu": "menu-zh"
+  "terminal_menu": "menu-zh",
+  "preview": "layouts/main-zh.svg"
 }

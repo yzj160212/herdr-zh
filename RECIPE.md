@@ -1,9 +1,6 @@
 # Herdr 中文版
 
-把 Herdr 的界面换成简体中文：侧边栏、代理列表、标签栏、窗格表头、文件/改动面板、
-状态栏、右键菜单、＋菜单、跳转面板、添加机器、worktree、快捷键页、设置页、
-命令面板、反馈、欢迎页、更新内容，以及「没有打开空间」时的空状态。
-另附一个中文的终端版布局。不改 `Herdr.app` 本体，不动二进制，不重签名。
+把 Herdr 的界面换成简体中文：侧边栏、代理列表、标签栏、窗格表头、文件/改动面板、状态栏、右键菜单、＋菜单、跳转面板、添加机器、worktree、快捷键页、设置页、命令面板、反馈、欢迎页、更新内容，以及「没有打开空间」时的空状态。另附一个中文的终端版布局。不改 `Herdr.app` 本体，不动二进制，不重签名。
 
 ![Herdr 中文版](preview.png)
 
@@ -14,8 +11,7 @@
 **`layouts/main-zh.json`（Herdr 中文版）**，从左到右、从上到下：
 
 - 根节点 `root`：`row`，`titlebar: none`（不画系统标题栏），`traffic_lights: [12, 16]`，
-  `background: canvas`，`terminal_padding: [14, 12]`，`divider: {width:1, color:border}`，
-  `terminal_menu: menu-zh`。**不设 `theme`/`font`**，所以配色与字体来自用户的 `settings.json`。
+  `background: canvas`，`terminal_padding: [14, 12]`，`divider: {width:1, color:border}`，`terminal_menu: menu-zh`。**不设 `theme`/`font`**，所以配色与字体来自用户的 `settings.json`。
 - `sidebar`（`column`，268px，min 44，max 480，`background: chrome`，`resizable: false`）：
   - `brand`（46px 高，`window_drag: true`）→ `workspace-chrome-zh`：羊头图标 + `Herdr`、
     放大镜、侧边栏开关。
@@ -37,38 +33,19 @@
       `changes` → `changes-zh`。由标签栏的两个按钮开关。
   - `status`（28px 高）→ `workspace-status-zh`。
 
-**`layouts/terminals-zh.json`（终端版 中文）**：根节点自带调色板
-（`#131619` 背景、`#3b82f6` 强调色、`graphite` 主题、`font_size: 15`、`padding: [6,6]`、`gap: 8`），
-`traffic_lights: [16, 18]`。顶部 `tabs`（38px，`window_drag: true`）→ `terminals-bar-zh`
-（空间胶囊 + 标签 + 窗口按钮 + 命令/新建按钮）；`main` → `{tab:"active"}`，
-`pane.header` → `terminals-pane-zh`（深色系硬编码的窗格表头）。
+**`layouts/terminals-zh.json`（终端版 中文）**：根节点自带调色板（`#131619` 背景、`#3b82f6` 强调色、`graphite` 主题、`font_size: 15`、`padding: [6,6]`、`gap: 8`），`traffic_lights: [16, 18]`。顶部 `tabs`（38px，`window_drag: true`）→ `terminals-bar-zh` （空间胶囊 + 标签 + 窗口按钮 + 命令/新建按钮）；`main` → `{tab:"active"}`，`pane.header` → `terminals-pane-zh`（深色系硬编码的窗格表头）。
 
-字号都不是新加的：中文文字用各模块原本的 `text_size`（例如状态栏 11.8、菜单 12.8、
-代理行 13、文件行 13），CJK 字形由系统字体（macOS 上是苹方）补上。
+字号都不是新加的：中文文字用各模块原本的 `text_size`（例如状态栏 11.8、菜单 12.8、代理行 13、文件行 13），CJK 字形由系统字体（macOS 上是苹方）补上。
 
-**中文化到什么程度**：所有 Herdr 自带的用户可见英文都译了，包括命令名在快捷键页里
-也译成中文（`space.new` → 新建空间）。保留英文的只有专有名词：`Herdr`、`Herdr 98`、
-`herdr-core`、`hc`、字体名（`JetBrains Mono`、`Geist`）、主题名
-（`graphite` `ink` `moss` `atom one dark` `paper`）、以及快捷键名 `Esc`。
+**中文化到什么程度**：所有 Herdr 自带的用户可见英文都译了，包括命令名在快捷键页里也译成中文（`space.new` → 新建空间）。保留英文的只有专有名词：`Herdr`、`Herdr 98`、`herdr-core`、`hc`、字体名（`JetBrains Mono`、`Geist`）、主题名（`graphite` `ink` `moss` `atom one dark` `paper`）、以及快捷键名 `Esc`。
 
 ---
 
 ## 它怎么表现
 
-**空间列表（`spaces-zh`）**：标题行 31px 高，左内边距 16px、右 10px，写「空间」，
-右侧一个 ＋ 打开新建空间。每个空间一行 30px 高（worktree 子行 28px）、圆角 8、
-左右内边距 8；行首是 18px 的圆角色块（5px 圆角、按下标取的调色板色 `ansi6/ansi3/ansi4/ansi5/ansi2/ansi1`），
-里面是空间名首字。名后只在"不寻常"时才跟 `仓库 · 分支 ↑2 ↓1`（主分支、与空间同名的分支不显示）。
-单击选择（`space.select`），按下再拖到别的行则排序（`space.move`），右键在指针处弹 `menu-zh`
-（200×260，`props: {tab:"space", target:{id}}`）。侧边栏宽度小于 **160px** 时自动变窄栏：
-只显示序号 + 一个状态点（`●` 需要你 / `·` 其他）。已知机器不止一台时，列表按机器分组，
-每组 26px 高的标题（小显示器/服务器图标 + 机器名 + ＋ + 折叠箭头「载入中…」）。
+**空间列表（`spaces-zh`）**：标题行 31px 高，左内边距 16px、右 10px，写「空间」，右侧一个 ＋ 打开新建空间。每个空间一行 30px 高（worktree 子行 28px）、圆角 8、左右内边距 8；行首是 18px 的圆角色块（5px 圆角、按下标取的调色板色 `ansi6/ansi3/ansi4/ansi5/ansi2/ansi1`），里面是空间名首字。名后只在"不寻常"时才跟 `仓库 · 分支 ↑2 ↓1`（主分支、与空间同名的分支不显示）。单击选择（`space.select`），按下再拖到别的行则排序（`space.move`），右键在指针处弹 `menu-zh` （200×260，`props: {tab:"space", target:{id}}`）。侧边栏宽度小于 **160px** 时自动变窄栏：只显示序号 + 一个状态点（`●` 需要你 / `·` 其他）。已知机器不止一台时，列表按机器分组，每组 26px 高的标题（小显示器/服务器图标 + 机器名 + ＋ + 折叠箭头「载入中…」）。
 
-**代理列表（`agents-zh`）**：标题「代理」41px 高，右上角一个排序按钮，点开 `agents-zh`
-自身的弹出菜单（200×140，`props: {sortMenu:true}`），两种排法：**按优先级** 或 **按空间分组**。
-按优先级时分组标题是「需要你 / 已完成 / 进行中 / 空闲」，按空间时用空间名，标题 30px 高、
-11px 灰字、可点击折叠（折叠后显示数量与最紧急状态）。每个代理一行 30px 高、圆角 8、
-圆点距 9；聚焦的那行用 `selected` 底色。四种状态：
+**代理列表（`agents-zh`）**：标题「代理」41px 高，右上角一个排序按钮，点开 `agents-zh` 自身的弹出菜单（200×140，`props: {sortMenu:true}`），两种排法：**按优先级** 或 **按空间分组**。按优先级时分组标题是「需要你 / 已完成 / 进行中 / 空闲」，按空间时用空间名，标题 30px 高、11px 灰字、可点击折叠（折叠后显示数量与最紧急状态）。每个代理一行 30px 高、圆角 8、圆点距 9；聚焦的那行用 `selected` 底色。四种状态：
 
 | 状态 | 行尾/标题里的样子 |
 |---|---|
@@ -77,46 +54,19 @@
 | `done` 已完成 | 7px 实心圆点，`done` 色 |
 | `idle` 空闲 | 7px 空心圆环，1.5px 边框，`idle` 色（缺省 `dim`） |
 
-悬停在行上，右侧出现图钉按钮（`tooltip` 是「置顶」/「取消置顶」），置顶的代理排到最前并
-在优先级视图里额外用 `· 细节` 标出空间名。子代理以树形缩进（`└`/`├` 用 1.5px 边框画），
-点一下预览（`terminal.peek`）。点击代理行聚焦它的窗格（`pane.focus`）。空闲时间显示
-`<1m` / `3m` / `2h` / `5d`。列表为空时显示「还没有代理状态。代理上报状态后才会出现在这里。
-旧版本和在 tmux 里运行的代理可能不会显示。」
+悬停在行上，右侧出现图钉按钮（`tooltip` 是「置顶」/「取消置顶」），置顶的代理排到最前并在优先级视图里额外用 `· 细节` 标出空间名。子代理以树形缩进（`└`/`├` 用 1.5px 边框画），点一下预览（`terminal.peek`）。点击代理行聚焦它的窗格（`pane.focus`）。空闲时间显示`<1m` / `3m` / `2h` / `5d`。列表为空时显示「还没有代理状态。代理上报状态后才会出现在这里。旧版本和在 tmux 里运行的代理可能不会显示。」
 
-**标签栏（`tabs-zh`）**：每个标签 29px 高、圆角 7、内边距左右 10，激活的用 `raised` 底 +
-`border` 边，其余透明。标签名最长 170px 后省略；程序图标 14px（单色字形或图片）。
-双击改名 → 打开中文重命名框；拖动排序（`tab.move`）；右键弹 `menu-zh`（`props: {tab:"tab"}`）；
-激活标签右端有 ✕（`tab.close`）。＋按钮打开 `new-menu-zh`（250×512）。右侧
-「文件」「改动」两个按钮开关 `panel` 列，并记住每个空间各自的选择。
+**标签栏（`tabs-zh`）**：每个标签 29px 高、圆角 7、内边距左右 10，激活的用 `raised` 底 + `border` 边，其余透明。标签名最长 170px 后省略；程序图标 14px（单色字形或图片）。双击改名 → 打开中文重命名框；拖动排序（`tab.move`）；右键弹 `menu-zh`（`props: {tab:"tab"}`）；激活标签右端有 ✕（`tab.close`）。＋按钮打开 `new-menu-zh`（250×512）。右侧「文件」「改动」两个按钮开关 `panel` 列，并记住每个空间各自的选择。
 
-**窗格表头（`pane-zh`）**：30px 高，左右内边距 10、圆点距 8。程序图标 14px、名称最多 260px、
-然后是 `~` 缩写后的目录；行尾按状态显示转圈 / 「需要你」胶囊 / 完成圆点。
-鼠标悬停在表头上时浮现四个 14px 图标按钮：向右分屏、向下分屏、放大/还原、关闭。
+**窗格表头（`pane-zh`）**：30px 高，左右内边距 10、圆点距 8。程序图标 14px、名称最多 260px、然后是 `~` 缩写后的目录；行尾按状态显示转圈 / 「需要你」胶囊 / 完成圆点。鼠标悬停在表头上时浮现四个 14px 图标按钮：向右分屏、向下分屏、放大/还原、关闭。
 
-**状态栏（`workspace-status-zh`）**：28px 高、左右内边距 14、圆点距 16、11.8px 灰字。
-从左到右：`本机`（或远端机器名，带服务器图标）· 当前分支 · `● N 个代理`
-（有阻塞时追加 `· N 个需要你`，用 `blocked` 色）· 空白 · 右侧 `⌘ Shift P  命令`，
-点击打开 `palette-zh`。
+**状态栏（`workspace-status-zh`）**：28px 高、左右内边距 14、圆点距 16、11.8px 灰字。从左到右：`本机`（或远端机器名，带服务器图标）· 当前分支 · `● N 个代理` （有阻塞时追加 `· N 个需要你`，用 `blocked` 色）· 空白 · 右侧 `⌘ Shift P  命令`，点击打开 `palette-zh`。
 
-**文件面板（`files-zh`）**：标题栏 42px 高，「文件」标题 + 右侧当前目录名；打开文件后
-标题变成文件名 + 一个 ← 返回。目录树每行 28px、每层缩进 18px、圆角 7，文件夹可展开
-（懒加载），git 状态在行尾标 `A`/`M`/`D`/`U`（绿/红/橙）。预览用只读编辑器，
-语法高亮取主题色（`ansi5` 关键字、`ansi2` 字符串、`ansi4` 函数、`ansi3` 类型、`ansi1` 数字、`ansi6` 常量）。
-上限：每层 500 条、总计 5000 条（超出时提示「文件列表上限：每个文件夹 500 项，共 5,000 项」）；
-文件超过 400000 字截断并注明「（文件已截断）」；目录变动 10 秒轮询 + 文件夹监视。
+**文件面板（`files-zh`）**：标题栏 42px 高，「文件」标题 + 右侧当前目录名；打开文件后标题变成文件名 + 一个 ← 返回。目录树每行 28px、每层缩进 18px、圆角 7，文件夹可展开（懒加载），git 状态在行尾标 `A`/`M`/`D`/`U`（绿/红/橙）。预览用只读编辑器，语法高亮取主题色（`ansi5` 关键字、`ansi2` 字符串、`ansi4` 函数、`ansi3` 类型、`ansi1` 数字、`ansi6` 常量）。上限：每层 500 条、总计 5000 条（超出时提示「文件列表上限：每个文件夹 500 项，共 5,000 项」）；文件超过 400000 字截断并注明「（文件已截断）」；目录变动 10 秒轮询 + 文件夹监视。
 
-**改动面板（`changes-zh`）**：标题栏 42px，「改动」+ `N 个文件` + `+N −N`。文件列表最多 200px 高、
-每行 28px（状态字母 + 路径 + 增删数），点开后下方是统一 diff：虚拟列表、每行 20px，
-新增行用 `ansi2` 18% 底、删除行用 `ansi1` 18% 底，行号 30px 宽右对齐。底部是提交框
-（32px，输入 12px）+「提交」按钮（有内容时才点亮）。上限 1000 个文件、每文件 1500 行、
-每行 4000 字符。
+**改动面板（`changes-zh`）**：标题栏 42px，「改动」+ `N 个文件` + `+N −N`。文件列表最多 200px 高、每行 28px（状态字母 + 路径 + 增删数），点开后下方是统一 diff：虚拟列表、每行 20px，新增行用 `ansi2` 18% 底、删除行用 `ansi1` 18% 底，行号 30px 宽右对齐。底部是提交框（32px，输入 12px）+「提交」按钮（有内容时才点亮）。上限 1000 个文件、每文件 1500 行、每行 4000 字符。
 
-**空状态（`empty-zh`）**：Herdr 内建的那句 `No space open. Make one (cmd-n).` 是硬编码英文，
-换不掉，所以用一个**整块的 stack 子节点盖住它**：`main-stack` 的 `empty` 子节点渲染一个
-圆角 12、`chrome` 底的卡片，写「还没有打开空间。新建一个（⌘+N）。」，下面一个
-「新建空间」按钮（`space.new`）。`empty-zh` 每 700ms 检查一次：有空间就把 stack 切回
-`terminals`，没有就切到 `empty`（`layout.select`）。所以运行中打开/关闭最后一个空间，
-画面会自动切换，不需要手动切布局。
+**空状态（`empty-zh`）**：Herdr 内建的那句 `No space open. Make one (cmd-n).` 是硬编码英文，换不掉，所以用一个**整块的 stack 子节点盖住它**：`main-stack` 的 `empty` 子节点渲染一个圆角 12、`chrome` 底的卡片，写「还没有打开空间。新建一个（⌘+N）。」，下面一个「新建空间」按钮（`space.new`）。`empty-zh` 每 700ms 检查一次：有空间就把 stack 切回`terminals`，没有就切到 `empty`（`layout.select`）。所以运行中打开/关闭最后一个空间，画面会自动切换，不需要手动切布局。
 
 **浮层（都开在指针处或顶部）**：
 
@@ -136,16 +86,13 @@
 | `welcome-zh` | 760×640 | 「欢迎使用 Herdr」四页引导，中文 |
 | `whatsnew-zh` | 640×620 | 「Herdr 更新内容」 |
 
-**键位入口**（`keys.json`）：`⌘,` 中文设置 · `⌘⇧P` 中文命令面板 · `⌘/` 与 `⌘⇧/` 中文快捷键 ·
-`⌘P` 中文跳转 · `F2` 重命名标签页 · `⇧F2` 重命名空间。
+**键位入口**（`keys.json`）：`⌘,` 中文设置 · `⌘⇧P` 中文命令面板 · `⌘/` 与 `⌘⇧/` 中文快捷键 · `⌘P` 中文跳转 · `F2` 重命名标签页 · `⇧F2` 重命名空间。
 
 ---
 
 ## 由什么搭成
 
-**布局**：`layouts/main-zh.json`（克隆自 Herdr 自带 `layouts/main.json`，根节点
-`cloned_from: {name:"main"}`）与 `layouts/terminals-zh.json`（克隆自 `terminals.json`）。
-节点树与尺寸见上一节；两个布局都只是**换掉 `content.mod` 指向的模块名**，结构与自带版一致。
+**布局**：`layouts/main-zh.json`（克隆自 Herdr 自带 `layouts/main.json`，根节点`cloned_from: {name:"main"}`）与 `layouts/terminals-zh.json`（克隆自 `terminals.json`）。节点树与尺寸见上一节；两个布局都只是**换掉 `content.mod` 指向的模块名**，结构与自带版一致。
 
 **每个模块用什么搭的**：
 
@@ -175,54 +122,36 @@
 | `whatsnew-zh` | `{notes, overlay}` | `updates, presentUpdateNotes, theme, props, closeOverlay` | — |
 | `terminals-bar-zh` / `terminals-pane-zh` | 后者用 `{pane}` | `spaces, panes, home, openOverlay, run, window, theme` | `tab.select/new`、`pane.focus/split/zoom/close`、`mod.open` |
 
-**美术**：`mods/workspace-chrome-zh/` 里有 33 个 SVG（`spinner.svg`、`monitor.svg`、
-`server.svg`、`branch.svg`、`plus.svg`、`search.svg`、`sidebar.svg`、`settings.svg`、
-`chevron-*.svg`、`x.svg` 等），`files-zh/` 4 个，`pane-zh/` 5 个，`tabs-zh/` 4 个
-（Windows 窗口按钮），`palette-zh/command.svg`，`settings-zh/` 6 个，`welcome-zh/` 7 个。
-都是 Herdr 自带图标（Lucide / Feather 衍生，见 NOTICE），原样复制过来。
+**美术**：`mods/workspace-chrome-zh/` 里有 33 个 SVG（`spinner.svg`、`monitor.svg`、`server.svg`、`branch.svg`、`plus.svg`、`search.svg`、`sidebar.svg`、`settings.svg`、`chevron-*.svg`、`x.svg` 等），`files-zh/` 4 个，`pane-zh/` 5 个，`tabs-zh/` 4 个（Windows 窗口按钮），`palette-zh/command.svg`，`settings-zh/` 6 个，`welcome-zh/` 7 个。都是 Herdr 自带图标（Lucide / Feather 衍生，见 NOTICE），原样复制过来。
 
-**`tools/`（可选）**：`apply.sh` 把 `frame/settings/main.js`、`mods/confirm/main.js`、
-`mods/prompt/main.js` 换成中文并锁定；`verify.sh` 体检；`refresh.sh` + `zhmerge.py`
-在 Herdr 升级后把中文搬到新版上游；`leftover.py` 扫残留英文；
-`frame-settings-en.js` / `mods-confirm-en.js` / `mods-prompt-en.js` 是 Herdr 原文件的副本。
+**`tools/`（可选）**：`apply.sh` 把 `frame/settings/main.js`、`mods/confirm/main.js`、`mods/prompt/main.js` 换成中文并锁定；`verify.sh` 体检；`refresh.sh` + `zhmerge.py` 在 Herdr 升级后把中文搬到新版上游；`leftover.py` 扫残留英文；`frame-settings-en.js` / `mods-confirm-en.js` / `mods-prompt-en.js` 是 Herdr 原文件的副本。
 
 ---
 
 ## 当心
 
 - **Herdr 每次启动会重写它自己的文件。** `frame/`、`mods/spaces`、`mods/agents`、`mods/tabs`、
-  `mods/menu`、`mods/prompt` … 全都会被二进制内嵌的源码覆盖，编辑它们会留下 `*-edited` 副本
-  然后被还原。所以中文**必须**放在自建副本（`*-zh`）里。唯一的例外是设置窗口、确认框、
-  重命名框：那三个只能"锁定替换"（写入中文后 `chmod 444` + `chflags uchg`）。
-  只加 `chflags uchg` 不够，**两个都要**。
+  `mods/menu`、`mods/prompt` … 全都会被二进制内嵌的源码覆盖，编辑它们会留下 `*-edited` 副本然后被还原。所以中文**必须**放在自建副本（`*-zh`）里。唯一的例外是设置窗口、确认框、重命名框：那三个只能"锁定替换"（写入中文后 `chmod 444` + `chflags uchg`）。只加 `chflags uchg` 不够，**两个都要**。
 - **别整份覆盖 `keys.json`。** 用户自己的键位在里面，只合并那六项。
 - **`mod.clone` 只处理"自己的"引用。** 它会改写本模块的资源路径（`mods/pane/` →
-  `mods/pane-zh/`）和"自开浮层"的名字，但**跨模块引用要手工改**：例如 `spaces-zh` 里
-  `openOverlay({mod:"menu"})` 要改成 `menu-zh`，`tabs-zh` 要指向 `menu-zh`/`new-menu-zh`。
-  漏改的结果是弹出一个英文菜单，而不是报错 —— 很容易漏。
+  `mods/pane-zh/`）和"自开浮层"的名字，但**跨模块引用要手工改**：例如 `spaces-zh` 里`openOverlay({mod:"menu"})` 要改成 `menu-zh`，`tabs-zh` 要指向 `menu-zh`/`new-menu-zh`。漏改的结果是弹出一个英文菜单，而不是报错 —— 很容易漏。
 - **`peek` 和 `toast` 换不了。** Herdr 按固定名字 `peek` / `toast` 打开这两个，
   用户侧没有配置项（`terminal_menu` 只影响终端右键菜单）。这两处仍是英文。
 - **空状态靠"盖"不靠"删"。** Herdr 内建的空状态文案在二进制里，只能用一个覆盖整块的
-  stack 子节点盖住；这也是为什么 `main-zh` 的 `main` 位置是个 `stack` 而不是直接
-  `{tab:"active"}` 的 block。若把 `main-stack` 改名或改成别的结构，`empty-zh` 就找不到它、
-  什么也不做（不报错），此时会露出内建的英文。
+  stack 子节点盖住；这也是为什么 `main-zh` 的 `main` 位置是个 `stack` 而不是直接`{tab:"active"}` 的 block。若把 `main-stack` 改名或改成别的结构，`empty-zh` 就找不到它、什么也不做（不报错），此时会露出内建的英文。
 - **`empty-zh` 用 700ms 定时器切换 stack 子节点。** 这是本套里唯一"轮询"的地方
   （判断 `spaces().length`）。改慢一点（如 2000ms）画面切换会有延迟，改快没必要。
 - **侧边栏窄于 160px 会变成窄栏**（`spaces-zh`/`agents-zh` 按宽度判断，不是标志位），
-  这是 Herdr 自带行为，中文版保留了：窄栏下 `agents-zh` 只显示序号 + 一个状态符号，
-  文案基本看不见。
+  这是 Herdr 自带行为，中文版保留了：窄栏下 `agents-zh` 只显示序号 + 一个状态符号，文案基本看不见。
 - **状态值大小写**：`agents()`/`machines()` 给的状态词可能是 `connected` 也可能是
   `Connected`，做词表时要大小写不敏感（`settings-zh` 里就是这么做的）。
 - **`settings-zh` 是"独立副本"**，它跟 `frame/settings` 是两份代码。想改设置页文案时
   两处都要改（`mods/settings-zh/main.js` 和 `tools/frame-settings-zh.js`）。
 - **字体**：中文靠系统的 CJK 字体补字形（macOS 是苹方）。如果用户把 `ui_font`
   设成一个没有 CJK 的字体，Herdr 仍会回退到系统字体，一般不会出方块。
-- **预览 SVG 是纯图形**（`layouts/*.svg`），因为 Herdr 自带的 `win98.svg` 也是纯图形、
-  渲染器不保证支持 `<text>`。要看带中文标签的图，看 `preview.png`（由
-  `assets/*.svg` 经 Chrome 无头渲染生成）。
+- **两套图别混**：`preview.png`（仓库首页那张）是 `herdr-app shot` 抓的**真机截图**；`layouts/*.svg` 是给「设置 › 外观」用的**布局示意图**，刻意只画图形不写字 —— 因为 Herdr 自带的 `win98.svg` 也是纯图形，它的 SVG 渲染器不保证支持 `<text>`。
 - **还没生效的控件**：`welcome-zh` 的「外观」分段控件会写 `settings.json`；
-  非 macOS 上 `settings-zh` 的「完全磁盘访问权限」按钮无意义（那是 macOS 特有）。
-  `palette-zh` 表里个别命令在旧版本上不存在，会自动被 `commands()` 过滤掉，不会报错。
+  非 macOS 上 `settings-zh` 的「完全磁盘访问权限」按钮无意义（那是 macOS 特有）。`palette-zh` 表里个别命令在旧版本上不存在，会自动被 `commands()` 过滤掉，不会报错。
 
 ---
 
@@ -266,7 +195,6 @@ herdr-app do mod.open '{"name":"machine-add-zh"}'    # 添加机器
 cd "$H" && ./zh-patch/verify.sh
 ```
 
-界面本身也要看到：侧边栏四个中文标题、标签栏「文件」「改动」、
-右键菜单全中文、`F2` 弹中文重命名框、`⌘,` 弹中文设置页并五个分节都是中文。
+界面本身也要看到：侧边栏四个中文标题、标签栏「文件」「改动」、右键菜单全中文、`F2` 弹中文重命名框、`⌘,` 弹中文设置页并五个分节都是中文。
 </DOC
 wc -l RECIPE.md; head -12 RECIPE.md

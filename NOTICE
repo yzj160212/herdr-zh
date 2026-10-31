@@ -1,28 +1,15 @@
-Herdr 中文界面（herdr-zh）
-Copyright (c) 2026 本仓库作者与贡献者
+Herdr 中文界面（herdr-zh）Copyright (c) 2026 本仓库作者与贡献者
 
 本仓库以 Apache License 2.0 发布（见 LICENSE）。部分内容来自第三方，声明如下。
 
 ---------------------------------------------------------------------------
 1. Herdr 自带的布局与界面模块（Apache License 2.0）
----------------------------------------------------------------------------
-`mods/*-zh/` 是 Herdr 自带界面模块（`mods/spaces`、`mods/agents`、`mods/tabs`、
-`mods/pane`、`mods/menu`、`mods/picker`、`mods/worktree` …）的**衍生作品**：
-保留其代码结构与行为，把用户可见文案换成简体中文，并把资源路径改到自己的副本目录。
-`layouts/main-zh.json`、`layouts/terminals-zh.json` 同样克隆自 Herdr 自带的
-`layouts/main.json` 与 `layouts/terminals.json`。
+--------------------------------------------------------------------------- `mods/*-zh/` 是 Herdr 自带界面模块（`mods/spaces`、`mods/agents`、`mods/tabs`、`mods/pane`、`mods/menu`、`mods/picker`、`mods/worktree` …）的**衍生作品**：保留其代码结构与行为，把用户可见文案换成简体中文，并把资源路径改到自己的副本目录。`layouts/main-zh.json`、`layouts/terminals-zh.json` 同样克隆自 Herdr 自带的`layouts/main.json` 与 `layouts/terminals.json`。
 
-`tools/frame-settings-*.js`、`tools/mods-confirm-*.js`、`tools/mods-prompt-*.js`
-中名为 `-en` 的文件是 Herdr 原文件的**原样副本**，仅用于还原；`-zh` 文件是其衍生作品。
+`tools/frame-settings-*.js`、`tools/mods-confirm-*.js`、`tools/mods-prompt-*.js` 中名为 `-en` 的文件是 Herdr 原文件的**原样副本**，仅用于还原；`-zh` 文件是其衍生作品。
 
-Herdr 自身以 Apache License 2.0 授权。其 LICENSE 全文随应用分发于
-`Herdr.app/Contents/Resources/LICENSE`（本仓库的 LICENSE 即其副本）。
-上游项目：https://herdr.dev
+Herdr 自身以 Apache License 2.0 授权。其 LICENSE 全文随应用分发于`Herdr.app/Contents/Resources/LICENSE`（本仓库的 LICENSE 即其副本）。上游项目：https://herdr.dev
 
 ---------------------------------------------------------------------------
 2. 图标（ISC / MIT）
----------------------------------------------------------------------------
-`mods/workspace-chrome-zh/*.svg` 等图标文件来自 Herdr 自带图标集，其中包含
-Lucide（https://github.com/lucide-icons/lucide ，ISC License，
-Copyright (c) Lucide Icons and Contributors）与 MIT 授权的 Feather 衍生图标。
-完整名单见 Herdr 应用内的 `THIRD-PARTY-NOTICES`。
+--------------------------------------------------------------------------- `mods/workspace-chrome-zh/*.svg` 等图标文件来自 Herdr 自带图标集，其中包含Lucide（https://github.com/lucide-icons/lucide ，ISC License，Copyright (c) Lucide Icons and Contributors）与 MIT 授权的 Feather 衍生图标。完整名单见 Herdr 应用内的 `THIRD-PARTY-NOTICES`。
