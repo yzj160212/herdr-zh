@@ -1,0 +1,64 @@
+#!/bin/bash
+# git commit-msg：检查提交信息本身的病句与 AI 味，规则跟文档同一套。
+#
+# 为什么也管提交信息：它同样是给人看的，而且常常是别人找问题时最先读到的东西。
+# 判定统一交给 human-writing 的 check_prose.py，不另造词表。
+#
+# 安装：bash tools/install-hooks.sh
+# 跳过：git commit --no-verify
+set -uo pipefail
+MSG_FILE="${1:-}"
+[ -n "$MSG_FILE" ] && [ -f "$MSG_FILE" ] || exit 0
+
+CKER="${CHECK_PROSE:-$HOME/.agents/skills/human-writing/scripts/check_prose.py}"
+if [ ! -f "$CKER" ]; then
+  echo "commit-msg：没找到 check_prose.py，跳过风格检查" >&2
+  exit 0
+fi
+
+# 预处理：去掉 git 的注释行与 >8 之后的忽略段；摘掉英文约定式前缀（fix: / docs(i18n):）
+CLEAN="$(mktemp)"
+trap 'rm -f "$CLEAN"' EXIT
+python3 - "$MSG_FILE" "$CLEAN" <<'PY'
+import re
+import sys
+
+src, out = sys.argv[1], sys.argv[2]
+lines = open(src, encoding='utf-8').read().split('\n')
+kept = []
+for line in lines:
+    if line.startswith('# ------------------------ >8'):
+        break
+    if line.startswith('#'):
+        continue
+    kept.append(line)
+
+# 英文约定式前缀是可被工具解析的字段，不是行文里的提示性冒号，先摘掉再判。
+PREFIX = re.compile(r'^[A-Za-z][A-Za-z0-9_-]*(?:\([A-Za-z0-9_,\s-]+\))?:(?=\s)')
+text = '\n'.join(kept).strip()
+text = '\n'.join(PREFIX.sub('', l) if i == 0 else l
+                 for i, l in enumerate(text.split('\n')))
+text = re.sub(r'\n{3,}', '\n\n', text)
+open(out, 'w', encoding='utf-8').write(text + '\n' if text else '')
+PY
+
+if [ ! -s "$CLEAN" ]; then
+  exit 0
+fi
+
+python3 "$CKER" "$CLEAN"
+rc=$?
+case "$rc" in
+  0) exit 0 ;;
+  2) echo "commit-msg：提交信息里没有中文，跳过风格检查" >&2; exit 0 ;;
+esac
+
+cat >&2 <<'MSG'
+
+commit-msg：提交信息没通过风格检查，规则跟文档一样。
+  · 冒号只留来引出直接原话。「主题：说明」改成「主题，说明」，或者拆成一行标题加一段正文
+  · 破折号、说白了/说穿了/先说结论、值得注意的是/需要指出的是、赋能/抓手/闭环这类，都不用
+  · 英文约定式前缀（fix: / docs(i18n):）会先被摘掉，不算违规
+  改完重跑 git commit；确认这次要放行，用 git commit --no-verify
+MSG
+exit 1

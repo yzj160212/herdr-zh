@@ -130,7 +130,7 @@ Herdr 升级会把它自己的文件换掉，中文会有几处回退。`tools/`
 bash tools/install-hooks.sh      # 装一次
 ```
 
-装完之后，每次提交只要改动里有 `.md`，就会自动跑 `tools/docaudit.py`，检查命令能不能跑、数量对不对、术语有没有解释、中文排版、有没有 AI 味。不通过就拦下提交。检查器本身也有自检，跑 `bash tools/docaudit.selftest.sh`。
+装完之后有两道关。改动里有 `.md` 时跑 `tools/docaudit.py`，检查命令能不能跑、数量对不对、术语有没有解释、中文排版、有没有 AI 味。提交信息本身也要过一遍同一套风格检查。两道都过了才提交成功。检查器自己也有自检，跑 `bash tools/docaudit.selftest.sh`。
 
 ## 许可
 

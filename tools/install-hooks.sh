@@ -10,10 +10,13 @@ DIR=""
 for d in tools zh-patch; do
   [ -f "$d/pre-commit" ] && DIR="$d" && break
 done
-[ -n "$DIR" ] || { echo "没找到 pre-commit（tools/ 或 zh-patch/ 里都没有）"; exit 1; }
+[ -n "$DIR" ] || { echo "没找到钩子（tools/ 或 zh-patch/ 里都没有）"; exit 1; }
 
 mkdir -p .git/hooks
-chmod +x "$DIR/pre-commit"
-ln -sf "../../$DIR/pre-commit" ".git/hooks/pre-commit"
-echo "已装 .git/hooks/pre-commit -> $DIR/pre-commit"
-echo "之后每次提交，只要改动里有 .md 就会自动跑文档自检。"
+for h in pre-commit commit-msg; do
+  [ -f "$DIR/$h" ] || { echo "跳过 $h（$DIR/ 里没有）"; continue; }
+  chmod +x "$DIR/$h"
+  ln -sf "../../$DIR/$h" ".git/hooks/$h"
+  echo "已装 .git/hooks/$h -> $DIR/$h"
+done
+echo "之后每次提交：改动里有 .md 就跑文档自检；提交信息本身也会被检查。"
