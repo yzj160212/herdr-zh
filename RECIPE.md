@@ -37,7 +37,7 @@
 
 字号都不是新加的：中文文字用各模块原本的 `text_size`（例如状态栏 11.8、菜单 12.8、代理行 13、文件行 13），CJK 字形由系统字体（macOS 上是苹方）补上。
 
-中文化到什么程度：所有 Herdr 自带的用户可见英文都译了，包括命令名在快捷键页里也译成中文（`space.new` → 新建空间）。保留英文的只有专有名词：`Herdr`、`Herdr 98`、`herdr-core`、`hc`、字体名（`JetBrains Mono`、`Geist`）、主题名（`graphite` `ink` `moss` `atom one dark` `paper`）、以及快捷键名 `Esc`。
+译到什么程度：所有 Herdr 自带的用户可见英文都译了，包括命令名在快捷键页里也译成中文（`space.new` → 新建空间）。保留英文的只有专有名词：`Herdr`、`Herdr 98`、`herdr-core`、`hc`、字体名（`JetBrains Mono`、`Geist`）、主题名（`graphite` `ink` `moss` `atom one dark` `paper`）、以及快捷键名 `Esc`。
 
 ---
 
