@@ -5,6 +5,17 @@ Herdr 升级后中文可能局部回退。这份文档说明**为什么会回退
 
 ---
 
+> **本仓库里的位置**：这份文档提到的 `./zh-patch/` 就是本仓库的 `tools/`。
+> 用之前先装过去，路径就对上了：
+>
+> ```sh
+> cp -R tools ~/.config/herdr-app/zh-patch
+> cd ~/.config/herdr-app && ./zh-patch/verify.sh
+> ```
+>
+> 仓库里的 `layouts/`、`mods/` 与安装后的 `~/.config/herdr-app/layouts`、`mods`
+> 是同一份内容；改了仓库再 `cp -R` 过去即可。
+
 ## 一、原理：升级到底会动到什么
 
 Herdr 没有语言设置，中文是三层东西拼出来的：
