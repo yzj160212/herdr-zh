@@ -58,6 +58,8 @@ def main():
 
     # 2 数量与事实对账
     if os.path.isdir('mods') and 'README.md' in docs:   # 没有 README 就不查模块表
+        on_disk = sorted(x for x in os.listdir('mods') if os.path.isdir('mods/' + x))
+        readme = open('README.md', encoding='utf-8').read()
         listed = [r.split('|')[2].strip()          # 保留反引号，下面用正则取名字
                   for r in readme.split('\n') if r.startswith('| 布局 |') or r.startswith('| 浮层 |')
                   or r.startswith('| 窗口 |') or r.startswith('| 空状态 |') or r.startswith('| 终端版 |')]
