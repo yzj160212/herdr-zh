@@ -37,7 +37,7 @@ cp -R mods/*    ~/.config/herdr-app/mods/
 | --- | --- |
 | ⌘, | 中文设置页 |
 | ⌘⇧P | 中文命令面板 |
-| ⌘/ | 中文快捷键页 |
+| ⌘/ 或 ⌘⇧/ | 中文快捷键页 |
 | ⌘P | 中文跳转面板 |
 | F2 | 重命名标签页 |
 | ⇧F2 | 重命名空间 |
@@ -47,6 +47,8 @@ cp -R mods/*    ~/.config/herdr-app/mods/
 ```sh
 herdr-app do layout.switch '{"name":"main-zh"}'
 ```
+
+这里的 `herdr-app` 是 Herdr 自带的命令行工具，装应用的时候就有了，不用另外安装。它后面接子命令：`do` 执行一条命令（比如切布局），`check` 试着加载一个模块看有没有报错，`status` 看当前布局和错误，`shot` 存一张窗口截图。
 
 想切回英文，把 `main-zh` 换成 `main` 就行。删掉 `layouts/main-zh.json` 和 `mods/*-zh` 就彻底干净了。
 
@@ -64,6 +66,8 @@ cd ~/.config/herdr-app
 ```
 
 `apply.sh` 会顺手处理关闭确认框（`mods/confirm`）和重命名输入框（`mods/prompt`），它们的情况一样。
+
+`chmod 444` 和 `chflags uchg` 是 macOS 上两种"只读"的标记：前者把写权限去掉，后者加上不可变标志。两个一起用，Herdr 才写不进去。
 
 代价是这三个文件从此不跟 Herdr 的更新走。升级后如果设置页缺了新版本才有的选项，重跑一次 `apply.sh`；要是新版本改了源码结构，就得按 `UPGRADE.md` 里的办法把中文搬到新版上去。
 

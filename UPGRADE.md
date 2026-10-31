@@ -86,6 +86,7 @@ git add -A && git commit -m "跟到 Herdr <版本>"
 | `zhstrings.py` | 字面量级转写，要求两边数量与类型完全一致（严格） |
 | `zhmerge.py` | 行级对齐合并，上游可增删代码；非对齐块保留英文并报告 |
 | `leftover.py` | 扫出疑似未翻译的英文文案 |
+| `docaudit.py` | 文档自检：命令能不能跑、数量对不对、术语有没有解释、排版与 AI 味 |
 | `backup/` | 每次刷新前的副本自动备份 |
 | `frame-settings-*.js` `mods-confirm-*.js` `mods-prompt-*.js` | 三个锁定文件的中英文源码对 |
 
