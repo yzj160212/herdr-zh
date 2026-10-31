@@ -12,6 +12,7 @@
   4. 中文排版        中文标点后多余空格、中文之间空格、重复标点
   5. AI 味           行内粗体、破折号
   6. 图文一致        首页图片是否存在；是否被标注成真机截图或示意图
+  7. 中文成稿硬禁令  复用 human-writing 的 check_prose.py（有就调，没有就跳过）
 """
 import json
 import os
@@ -130,6 +131,18 @@ def main():
                 bad.append(f'README 引用的图片不存在: {img}')
         if imgs and '截图' not in readme:
             bad.append('README 用了图片，但没说明是真机截图还是示意图')
+
+    # 7 中文成稿硬禁令：不自己造词表，直接调用 human-writing 的检查器
+    checker = os.environ.get('CHECK_PROSE') or os.path.expanduser(
+        '~/.agents/skills/human-writing/scripts/check_prose.py')
+    if os.path.exists(checker):
+        for d in docs:
+            r = subprocess.run([sys.executable, checker, d], capture_output=True, text=True)
+            if r.returncode != 0:
+                hits = [l for l in r.stdout.split('\n') if l.startswith('- ')]
+                bad.append(f'{d} 中文成稿硬禁令：' + '；'.join(x[2:60] for x in hits[:3]))
+    else:
+        notes.append('没找到 check_prose.py，跳过中文成稿硬禁令（可用 CHECK_PROSE 指定路径）')
 
     print('== 文档自检 ==')
     for n in notes:

@@ -16,6 +16,8 @@ cat > "$T/README.md" <<'DOC'
 
 写错字了。 这里多一个空格，还有 **粗体** 和 —— 破折号。
 
+说白了，这一行只有 human-writing 的 check_prose.py 才会判违规，用来验证接线没断。
+
 ```sh
 if true; then
 ```
@@ -41,5 +43,6 @@ check '行内粗体'
 check '破折号'
 check '图片不存在'
 check '按键表'
+check '中文成稿硬禁令'
 
-echo "docaudit 自检通过：6 类缺陷都能报出来"
+echo "docaudit 自检通过：7 类缺陷都能报出来（含只由 check_prose 判定的中文硬禁令）"

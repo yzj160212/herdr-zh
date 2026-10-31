@@ -42,19 +42,19 @@ cp -R mods/*    ~/.config/herdr-app/mods/
 | F2 | 重命名标签页 |
 | ⇧F2 | 重命名空间 |
 
-最后切到中文布局：
+最后切到中文布局。
 
 ```sh
 herdr-app do layout.switch '{"name":"main-zh"}'
 ```
 
-这里的 `herdr-app` 是 Herdr 自带的命令行工具，装应用的时候就有了，不用另外安装。它后面接子命令：`do` 执行一条命令（比如切布局），`check` 试着加载一个模块看有没有报错，`status` 看当前布局和错误，`shot` 存一张窗口截图。
+这里的 `herdr-app` 是 Herdr 自带的命令行工具，装应用的时候就有了，不用另外安装。它后面接子命令。`do` 执行一条命令（比如切布局），`check` 试着加载一个模块看有没有报错，`status` 看当前布局和错误，`shot` 存一张窗口截图。
 
 想切回英文，把 `main-zh` 换成 `main` 就行。删掉 `layouts/main-zh.json` 和 `mods/*-zh` 就彻底干净了。
 
 ## 设置窗口
 
-Herdr 的设置窗口是独立窗口，源码在 `frame/settings/`，每次启动都会被重写。改法是写成中文版之后把文件锁住，它写不进去就跳过：
+Herdr 的设置窗口是独立窗口，源码在 `frame/settings/`，每次启动都会被重写。改法是写成中文版之后把文件锁住，它写不进去就跳过。
 
 ```sh
 cp -R tools ~/.config/herdr-app/zh-patch
@@ -67,20 +67,20 @@ cd ~/.config/herdr-app
 
 `apply.sh` 会顺手处理关闭确认框（`mods/confirm`）和重命名输入框（`mods/prompt`），它们的情况一样。
 
-`chmod 444` 和 `chflags uchg` 是 macOS 上两种"只读"的标记：前者把写权限去掉，后者加上不可变标志。两个一起用，Herdr 才写不进去。
+`chmod 444` 和 `chflags uchg` 是 macOS 上两种"只读"的标记，前者把写权限去掉，后者加上不可变标志。两个一起用，Herdr 才写不进去。
 
 代价是这三个文件从此不跟 Herdr 的更新走。升级后如果设置页缺了新版本才有的选项，重跑一次 `apply.sh`；要是新版本改了源码结构，就得按 `UPGRADE.md` 里的办法把中文搬到新版上去。
 
 ## 里面有什么
 
-两个布局：
+布局有两个。
 
 | 文件 | 说明 |
 | --- | --- |
 | `layouts/main-zh.json` | 主布局。左边空间和代理列表，上面标签栏，右边文件与改动面板，底下状态栏，中间终端 |
 | `layouts/terminals-zh.json` | 终端版布局。标签放在标题栏，窗格做成卡片 |
 
-二十五个模块：
+模块一共二十五个。
 
 | 位置 | 模块 | 中文的部分 |
 | --- | --- | --- |
@@ -88,20 +88,20 @@ cd ~/.config/herdr-app
 | 布局 | `spaces-zh` | 「空间」标题、空间名、按机器分组、右键菜单 |
 | 布局 | `agents-zh` | 「代理」标题、按优先级或空间分组、置顶、子代理树、四种状态的显示 |
 | 布局 | `tabs-zh` | 标签栏、「文件」「改动」按钮、＋菜单 |
-| 布局 | `pane-zh` | 窗格表头：程序名、路径、状态、分屏与关闭按钮 |
-| 布局 | `workspace-status-zh` | 状态栏：「本机 · N 个代理」和「⌘ Shift P 命令」 |
+| 布局 | `pane-zh` | 窗格表头，显示程序名、路径、状态和分屏、关闭按钮 |
+| 布局 | `workspace-status-zh` | 状态栏，显示「本机 · N 个代理」和「⌘ Shift P 命令」 |
 | 布局 | `files-zh` | 「文件」面板、目录树、只读预览、出错提示 |
 | 布局 | `changes-zh` | 「改动」面板、diff、提交框 |
-| 空状态 | `empty-zh` | 「还没有打开空间。新建一个（⌘+N）。」，以及一个新建按钮 |
+| 空状态 | `empty-zh` | 「还没有打开空间。新建一个（⌘+N）。」和一个新建按钮 |
 | 浮层 | `menu-zh` | 右键菜单，窗格、标签、空间各一套，加四个主题 |
-| 浮层 | `new-menu-zh` | ＋菜单：终端、启动一个代理、新建空间、worktree |
+| 浮层 | `new-menu-zh` | ＋菜单里有终端、启动一个代理、新建空间、worktree |
 | 浮层 | `picker-zh` | 跳转面板，列出空间、标签和其中的代理 |
 | 浮层 | `machine-add-zh` | 「添加机器」，从 ssh 配置列主机，Mac 上还有授权说明 |
 | 浮层 | `worktree-zh` | 新建、打开、移除 worktree |
 | 浮层 | `help-zh` | 快捷键页，命令名也译成中文 |
-| 浮层 | `prompt-zh` | 输入框：名称、取消、保存 |
+| 浮层 | `prompt-zh` | 输入框，字段是名称，按钮是取消和保存 |
 | 浮层 | `rename-tab-zh` `rename-space-zh` | 双击标签或右键空间，直接弹中文重命名框 |
-| 窗口 | `settings-zh` | 设置页：外观、机器、提醒、更新、隐私 |
+| 窗口 | `settings-zh` | 设置页，含外观、机器、提醒、更新、隐私五节 |
 | 窗口 | `palette-zh` | 命令面板 |
 | 窗口 | `feedback-zh` | 发送反馈 |
 | 窗口 | `welcome-zh` | 欢迎页 |
@@ -118,7 +118,7 @@ macOS 菜单栏里 Herdr 菜单的那几项，`Settings…`、`Hide Herdr`、`Qu
 
 终端里你自己程序输出的内容当然不算界面。
 
-有意留英文的专有名词：`Herdr`、`Herdr 98`、`herdr-core`、`hc`、字体名（JetBrains Mono、Geist）、主题名（graphite、ink、moss、atom one dark、paper），还有 `Esc`。
+有意保留英文的专有名词是 `Herdr`、`Herdr 98`、`herdr-core`、`hc`、字体名（JetBrains Mono、Geist）、主题名（graphite、ink、moss、atom one dark、paper），还有 `Esc`。
 
 ## 升级之后
 
