@@ -1,0 +1,48 @@
+#!/bin/bash
+# git pre-commit：改动到 Markdown 就跑文档自检，不通过不让提交。
+#
+# 为什么挂在提交上：文档的病句、AI 味、未解释的变量、没跑过的命令，靠人记性守不住。
+# 已经出过好几次「用户先发现」的事，所以把检查放在提交这一步。
+#
+# 安装：bash tools/install-hooks.sh
+# 跳过（确实要跳过时）：git commit --no-verify
+set -uo pipefail
+ROOT="$(git rev-parse --show-toplevel)" || exit 1
+cd "$ROOT" || exit 1
+
+changed=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.md$' || true)
+if [ -z "$changed" ]; then
+  exit 0
+fi
+
+# 找自检脚本：公开仓库在 tools/，本地安装版在 zh-patch/
+AUDIT=""
+for p in tools/docaudit.py zh-patch/docaudit.py; do
+  [ -f "$p" ] && AUDIT="$p" && break
+done
+if [ -z "$AUDIT" ]; then
+  echo "pre-commit：改动里有 .md，但没找到 docaudit.py，跳过自检" >&2
+  exit 0
+fi
+
+echo "pre-commit：这次改了 $(echo "$changed" | wc -l | tr -d ' ') 个 Markdown，跑文档自检"
+echo "            $changed" | tr '\n' ' '; echo
+
+SELFTEST="$(dirname "$AUDIT")/docaudit.selftest.sh"
+if [ -f "$SELFTEST" ]; then
+  bash "$SELFTEST" || { echo "pre-commit：自检脚本自己失效了，先修它" >&2; exit 1; }
+fi
+
+if python3 "$AUDIT" . ; then
+  exit 0
+else
+  cat >&2 <<'MSG'
+
+pre-commit：文档自检没通过，提交被拦下。
+  改完上面的 ✗ 项再提交。
+  检查器判定「中文成稿硬禁令」用的是 human-writing 的 check_prose.py；
+  确认它还有效可以跑 bash zh-patch/docaudit.selftest.sh
+  确实要跳过这一关：git commit --no-verify
+MSG
+  exit 1
+fi
