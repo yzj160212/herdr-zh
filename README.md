@@ -24,11 +24,12 @@ agent 的预览条（peek）和系统提示条（toast）换不了。Herdr 是�
 git clone https://github.com/yzj160212/herdr-zh.git ~/herdr-zh
 cd ~/herdr-zh
 
-H=~/.config/herdr-app
-mkdir -p "$H/layouts" "$H/mods"
-cp -R layouts/* "$H/layouts/"
-cp -R mods/*    "$H/mods/"
+mkdir -p ~/.config/herdr-app/layouts ~/.config/herdr-app/mods
+cp -R layouts/* ~/.config/herdr-app/layouts/
+cp -R mods/*    ~/.config/herdr-app/mods/
 ```
+
+（`~/.config/herdr-app` 是 Herdr 自己放布局和模块的目录，也就是它自带文件待的地方。）
 
 再合并按键。仓库里的 `keys.json` 有六项，加到你自己 `keys.json` 的 `global` 段里。不要整份覆盖，不然你自己的按键就没了。
 

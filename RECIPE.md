@@ -160,11 +160,12 @@
 装好之后，下面每一条都能真做到，就说明这套东西是好的（Herdr 0.1.10 上已逐条跑过）：
 
 ```sh
-H=~/.config/herdr-app
-cp -R layouts/* "$H/layouts/"; cp -R mods/* "$H/mods/"
+cp -R layouts/* ~/.config/herdr-app/layouts/
+cp -R mods/*    ~/.config/herdr-app/mods/
 
 # 1. 每个模块都能加载（25 个，全部通过）
-for d in "$H"/mods/*-zh "$H"/mods/empty-zh "$H"/mods/rename-tab-zh "$H"/mods/rename-space-zh; do
+for d in ~/.config/herdr-app/mods/*-zh ~/.config/herdr-app/mods/empty-zh \
+         ~/.config/herdr-app/mods/rename-tab-zh ~/.config/herdr-app/mods/rename-space-zh; do
   herdr-app check "$d" | tail -1
 done
 
@@ -192,7 +193,7 @@ herdr-app do mod.open '{"name":"help-zh"}'           # 快捷键
 herdr-app do mod.open '{"name":"machine-add-zh"}'    # 添加机器
 
 # 6. 装过 tools/ 之后（可选）：一键体检 8 项全绿
-cd "$H" && ./zh-patch/verify.sh
+cd ~/.config/herdr-app && ./zh-patch/verify.sh
 ```
 
 界面本身也要看到：侧边栏四个中文标题、标签栏「文件」「改动」、右键菜单全中文、`F2` 弹中文重命名框、`⌘,` 弹中文设置页并五个分节都是中文。
